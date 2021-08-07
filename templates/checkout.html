@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+
+{% block title %}Checkout {% endblock %}
+
+{% block content %}
+<div class="contain>
+    <div class="row">
+        <div class="col-md-8">
+            <h3>Items in the cart</h3>
+            <a href="{% url 'shop:mycart' %}">Update Cart</a>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>SN</th>
+                        <th>Product</th>
+                        <th>Rate</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cp in cart.cartproduct_set.all %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{cp.product.title}}</td>
+                        <td>{{cp.rate}}</td>
+                        <td>{{cp.quantity}}</td>
+                        <td>{{cp.subtotal}}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <th colspan="4" class="text-right">Total</th>
+                        <th>Ksh. {{cart.total}}</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <h3 style="color:orange">Checkout Form</h3>
+            <form action="" method="POST">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <button style="background-color:orange; color:white;" class="btn">Place order</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

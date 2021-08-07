@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block title %}Customer Login{% endblock %}
+
+{% block content %}
+<style>
+    .errorlist {
+        color: red;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h3 style="color:orange;">Login Form</h3>
+            <hr>
+            <form action="" method="POST">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <button style="background-color:orange; color:white;" class="btn btn-sm">Login</button>
+                {% if error %}
+                <li style="color: red;">{{error}}</li>
+                {% endif %}
+            </form>
+           
+            <p>Don't have account? <a href="{% url 'shop:customerregistration' %}{% if request.GET.next %}?next={{request.GET.next}}{% endif %}">Register here</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
